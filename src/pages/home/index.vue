@@ -134,21 +134,21 @@ const displayAddress = computed(() => {
     <h1>大聪明 Rarity 托管版</h1>
     <div v-if="!!address" class="module-approve">
       <n-spin v-if="loading.approve" stroke="#000" ></n-spin>
-      <template v-if="!approved">
-        <p>请授权 Rarity 合约后联系大聪明客服，开启躺赢模式</p>
-        <n-button class="btn-approve" :loading="loading.action" size="large" color="#000" @click="approve">
-          Approve
-        </n-button>
-      </template>
       <template v-else>
-        <div>
-          <p>已经完成授权</p>
-          <n-button class="btn-approve" ghost size="large" color="#000" disabled>
-            Approved
+        <template v-if="!approved">
+          <p>请授权 Rarity 合约后联系大聪明客服，开启躺赢模式</p>
+          <n-button class="btn-approve" :loading="loading.action" size="large" color="#000" @click="approve">
+            Approve
           </n-button>
-        </div>
-
-
+        </template>
+        <template v-if="approved">
+          <div>
+            <p>已经完成授权</p>
+            <n-button class="btn-approve" ghost size="large" color="#000" disabled>
+              Approved
+            </n-button>
+          </div>
+        </template>
       </template>
     </div>
     <div class="module-log">
