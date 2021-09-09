@@ -1,0 +1,4 @@
+export const CONTRACT_CONFIG = {
+  NFT: "0xce761d788df608bd21bdd59d6f4b54b2e27f25bb",
+  BATCH: "0x69c9591b5b275e360e68a1ad05c55b4456546868",
+}
