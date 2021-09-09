@@ -67,6 +67,10 @@ onMounted(() => {
   load()
 })
 
+const connect = async () => {
+  await provider.send("eth_requestAccounts", []);
+}
+
 const checkApprove = async () => {
   try {
     loading.value.approve = true
