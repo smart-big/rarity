@@ -31,7 +31,7 @@ const setAddress = async () => {
   }
 }
 
-const provider = window.web3 ? new ethers.providers.Web3Provider(window.web3.currentProvider) :  new ethers.providers.JsonRpcProvider('https://mainnet.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161');
+const provider = window.ethereum ? new ethers.providers.Web3Provider(window.ethereum) :  new ethers.providers.JsonRpcProvider('https://mainnet.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161');
 
 
 onMounted(() => {
@@ -42,22 +42,20 @@ onMounted(() => {
     }
   }
 
-  if(window.web3) {
-    const web3Provider = window.web3.currentProvider
-
-    web3Provider.on('connect', () => {
+  if(window.ethereum) {
+    window.ethereum.on('connect', () => {
       load()
     })
 
-    web3Provider.on('disconnect', () => {
+    window.ethereum.on('disconnect', () => {
       address.value = ''
     })
 
-    web3Provider.on('accountsChanged', () => {
+    window.ethereum.on('accountsChanged', () => {
       load()
     })
 
-    web3Provider.on("networkChanged", async (id) => {
+    window.ethereum.on("networkChanged", async (id) => {
       checkNetwork(id)
       await load()
     });
