@@ -116,6 +116,7 @@ const displayAddress = computed(() => {
 <template>
   <div class="container">
     <div class="header">
+      <div></div>
       <div class="wallet">
         <n-button v-if="error" type="error" size="large">
           Error Network
