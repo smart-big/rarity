@@ -13,6 +13,7 @@ const props = defineProps({
 })
 
 const logs = ref()
+const inputAddr = ref()
 const totalCost = ref(0)
 const txCount = ref(0)
 const loading = ref(false)
@@ -44,13 +45,13 @@ const columns = [
   }
 ]
 
-const loadLogs = async () => {
+const loadLogs = async (address) => {
   if(loading.value) return;
   loading.value = true
   const { data } = await supabase
       .from('rarity_logs')
       .select('hash, type, gasCost, timestamp, heroes_count')
-      .eq('address', props.address.toLowerCase())
+      .eq('address', address.toLowerCase())
       .order('timestamp', { ascending: false })
   logs.value = data.map((log) => ({
     ...log,
@@ -67,7 +68,7 @@ const loadLogs = async () => {
 
 onMounted(async () => {
   if (props.address) {
-    await loadLogs()
+    await loadLogs(props.address)
   }
 })
 
@@ -75,8 +76,15 @@ onMounted(async () => {
 
 <template>
   <div class="container">
+    <n-button @click="() => loadLogs(address)">查询我的</n-button>
+
+    <div class="container">
+      <n-input-group>
+        <n-input :style="{ width: '100%' }" placeholder="0x..." v-model:value="inputAddr" @change=""/>
+        <n-button type="primary" @click="() => loadLogs(inputAddr)" ghost>查询</n-button>
+      </n-input-group>
+    </div>
     <h4>FTM消耗：{{totalCost}}</h4>
-    <p>部分新的交易gasPrice不是实际，可能显示会超出实际，最终按照结算为准</p>
     <n-data-table
         ref="table"
         :columns="columns"
