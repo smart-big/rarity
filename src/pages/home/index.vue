@@ -5,6 +5,7 @@ import { useMessage } from 'naive-ui'
 import {CONTRACT_CONFIG} from "../../constants";
 import NFT_ABI from "../../abis/nft.json";
 import {addressFilter} from "../../utils/address";
+import Logs from "../../components/Logs/index.vue"
 
 const address = ref('')
 const error = ref(false)
@@ -150,9 +151,9 @@ const displayAddress = computed(() => {
         </template>
       </template>
     </div>
-    <div class="module-log">
-      <h3>日志记录</h3>
-      coming soon!
+    <div v-if="address && approved" class="module-log">
+      <h3>英雄数据</h3>
+      <logs :address="address"/>
     </div>
   </div>
 </template>
