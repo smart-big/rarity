@@ -55,11 +55,11 @@ const columns = [
     key: 'cellarMaterial'
   },
   {
-    title: '上一次冒险',
+    title: '下次冒险',
     key: 'log'
   },
   {
-    title: '上一次地牢',
+    title: '下次地牢',
     key: 'cellarLog'
   },
   {
