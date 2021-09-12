@@ -76,6 +76,7 @@ onMounted(async () => {
 <template>
   <div class="container">
     <h4>FTM消耗：{{totalCost}}</h4>
+    <p>部分新的交易gasPrice不是实际，可能显示会超出实际，最终按照结算为准</p>
     <n-data-table
         ref="table"
         :columns="columns"
