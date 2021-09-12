@@ -55,11 +55,11 @@ const columns = [
     key: 'cellarMaterial'
   },
   {
-    title: '下次冒险',
+    title: '上次冒险',
     key: 'log'
   },
   {
-    title: '下次地牢',
+    title: '上次地牢',
     key: 'cellarLog'
   },
   {
@@ -143,8 +143,8 @@ const handlePageChange = async (currentPage) => {
       xp: xp.div(constants.WeiPerEther).toString(),
       gold: gold.div(constants.WeiPerEther).toString(),
       cellarMaterial: cellarMaterials.toString(),
-      log: log.toNumber() === 0 ? "N/A" : new Date(log.toNumber() * 1000).toLocaleString(),
-      cellarLog: cellarLog.toNumber() === 0 ? "N/A" : new Date(cellarLog.toNumber() * 1000).toLocaleString(),
+      log: log.toNumber() === 0 ? "N/A" : new Date(log.toNumber() * 1000 - 1000*60*60*24).toLocaleString(),
+      cellarLog: cellarLog.toNumber() === 0 ? "N/A" : new Date(cellarLog.toNumber() * 1000 - 1000*60*60*24s).toLocaleString(),
       strength, dexterity, constitution, intelligence, wisdom, charisma
     };
   })
