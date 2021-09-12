@@ -144,7 +144,7 @@ const handlePageChange = async (currentPage) => {
       gold: gold.div(constants.WeiPerEther).toString(),
       cellarMaterial: cellarMaterials.toString(),
       log: log.toNumber() === 0 ? "N/A" : new Date(log.toNumber() * 1000 - 1000*60*60*24).toLocaleString(),
-      cellarLog: cellarLog.toNumber() === 0 ? "N/A" : new Date(cellarLog.toNumber() * 1000 - 1000*60*60*24s).toLocaleString(),
+      cellarLog: cellarLog.toNumber() === 0 ? "N/A" : new Date(cellarLog.toNumber() * 1000 - 1000*60*60*24).toLocaleString(),
       strength, dexterity, constitution, intelligence, wisdom, charisma
     };
   })
