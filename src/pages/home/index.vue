@@ -5,6 +5,7 @@ import { useMessage } from 'naive-ui'
 import {CONTRACT_CONFIG} from "../../constants";
 import NFT_ABI from "../../abis/nft.json";
 import {addressFilter} from "../../utils/address";
+import Heroes from "../../components/Heroes/index.vue"
 import Logs from "../../components/Logs/index.vue"
 
 const address = ref('')
@@ -152,8 +153,16 @@ const displayAddress = computed(() => {
       </template>
     </div>
     <div v-if="address && approved" class="module-log">
-      <h3>英雄数据</h3>
-      <logs :address="address"/>
+      <n-card style="margin-bottom: 16px;">
+        <n-tabs type="line">
+          <n-tab-pane name="heroes" tab="英雄数据">
+            <heroes :address="address"/>
+          </n-tab-pane>
+          <n-tab-pane name="logs" tab="挂机日志">
+            <logs :address="address"/>
+          </n-tab-pane>
+        </n-tabs>
+      </n-card>
     </div>
   </div>
 </template>
