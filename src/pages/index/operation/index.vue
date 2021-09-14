@@ -205,6 +205,16 @@ const approve = async (isApprove) => {
 </route>
 <template>
   <div class="container">
+    <div>
+      注意: rarity-game.netlify.app 不兼容, 因为对方的代码设计问题，会导致授权后无法查看
+    </div>
+    <div>
+      测试UI版 https://rarity-adventures.surge.sh/
+    </div>
+    <div>
+      本软件为专业软件,使用之前确保自己有一定智能合约知识
+    </div>
+
     <div v-if="!!address" class="module-approve">
       <n-spin v-if="loading.approve" stroke="#000" ></n-spin>
       <template v-else>
@@ -229,7 +239,6 @@ const approve = async (isApprove) => {
     </div>
     <div v-if="address && approved" class="module-log">
       <h4>批量操作，单次建议不超过30个。否则区块打包缓慢</h4>
-      <p>rarity-game.netlify.app 不兼容, 因为对方的代码设计问题，会导致授权后无法查看</p>
       <div class="action-group">
         <n-button type="primary" @click="batchApprove" :disabled="processing">批量授权 (加点/领金需要)</n-button>
         <n-button type="primary" @click="batchAdventure" :disabled="processing">批量冒险</n-button>

@@ -78,7 +78,7 @@ const approve = async (isApprove) => {
       <n-spin v-if="loading.approve" stroke="#000" ></n-spin>
       <template v-else>
         <template v-if="!approved">
-          <p>请授权 Rarity 合约后联系大聪明客服，开启躺赢模式</p>
+          <p>收费版, 请不要随意点击, 授权 Rarity 合约后联系大聪明客服，开启躺赢模式</p>
           <n-button class="btn-approve" :loading="loading.action" size="large" color="#000" @click="approve(true)">
             Approve
           </n-button>
