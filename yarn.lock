@@ -538,7 +538,7 @@
   dependencies:
     "@types/yargs-parser" "*"
 
-"@vitejs/plugin-vue@^1.6.1":
+"@vitejs/plugin-vue@1.6.2":
   version "1.6.2"
   resolved "https://registry.yarnpkg.com/@vitejs/plugin-vue/-/plugin-vue-1.6.2.tgz#40dfe314cff610d4dd027a0b4ea2a93a257f3fc9"
   integrity sha512-Pf+dqkT4pWPfziPm51VtDXsPwE74CEGRiK6Vgm5EDBewHw1EgcxG7V2ZI/Yqj5gcDy5nVtjgx0AbsTL+F3gddg==
@@ -792,7 +792,7 @@ call-bind@^1.0.0, call-bind@^1.0.2:
     function-bind "^1.1.1"
     get-intrinsic "^1.0.2"
 
-chalk@^4.0.0, chalk@^4.1.0:
+chalk@^4.0.0, chalk@^4.1.1:
   version "4.1.2"
   resolved "https://registry.yarnpkg.com/chalk/-/chalk-4.1.2.tgz#aac4e2b7734a740867aeb16bf02aad556a1e7a01"
   integrity sha512-oKnbhFyRIXpUuez8iBMmyEa4nbj4IOQyuhc/wy9kY7/WVPcwIO9VA668Pu8RkO7+0G76SLROeyw9CpQ061i4mA==
@@ -1926,18 +1926,18 @@ vfonts@^0.1.0:
   resolved "https://registry.yarnpkg.com/vfonts/-/vfonts-0.1.0.tgz#c16af37ca044b2725ae55553049280efbe6222a9"
   integrity sha512-vQBcvntBlnAPonAkGNM8iJ9NxE3PucA+V2W95xiN75YJKxirLJvOws2kEyOEO45T4N+YTbQOCR2m77Y05pfVhQ==
 
-vite-plugin-pages@0.9.5:
-  version "0.9.5"
-  resolved "https://registry.yarnpkg.com/vite-plugin-pages/-/vite-plugin-pages-0.9.5.tgz#397dbdf301ba4d47f0d50bbfef275b4a32c70235"
-  integrity sha512-lIFXI0hb5yxUj9avR9J9mME5qTadhPW7kQC31FdkNXREj5Bx9ets0f3sMvdUVqNIafd2d9BgxbWYrX9vmSxa2w==
+vite-plugin-pages@0.10.0:
+  version "0.10.0"
+  resolved "https://registry.yarnpkg.com/vite-plugin-pages/-/vite-plugin-pages-0.10.0.tgz#6af6cc17cc59259043048219ffad01f5c708883b"
+  integrity sha512-vAxH0RBaIoBEbJLT+YP9TjWK//aPb8w2r2fk+TLmvrKjDT/Y7F9ne/VYlay+U6jJNM9pHTOJldTamgbDgkSsCg==
   dependencies:
     "@vue/compiler-sfc" "^3.0.11"
-    chalk "^4.1.0"
+    chalk "^4.1.1"
     debug "^4.3.2"
     deep-equal "^2.0.5"
     fast-glob "^3.2.5"
     json5 "^2.2.0"
-    yaml "^2.0.0-4"
+    yaml "^2.0.0-5"
 
 vite@^2.5.4:
   version "2.5.7"
@@ -2046,7 +2046,7 @@ yallist@^3.0.2:
   resolved "https://registry.yarnpkg.com/yallist/-/yallist-3.1.1.tgz#dbb7daf9bfd8bac9ab45ebf602b8cbad0d5d08fd"
   integrity sha512-a4UGQaWPH59mOXUYnAG2ewncQS4i4F43Tv3JoAM+s2VDAmS9NsK8GpDMLrCHPksFT7h3K6TOoUNn2pb7RoXx4g==
 
-yaml@^2.0.0-4:
+yaml@^2.0.0-5:
   version "2.0.0-8"
   resolved "https://registry.yarnpkg.com/yaml/-/yaml-2.0.0-8.tgz#226365f0d804ba7fb8cc2b527a00a7a4a3d8ea5f"
   integrity sha512-QaYgJZMfWD6fKN/EYMk6w1oLWPCr1xj9QaPSZW5qkDb3y8nGCXhy2Ono+AF4F+CSL/vGcqswcAT0BaS//pgD2A==
