@@ -170,8 +170,9 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="container">
+  <div class="table-container">
     <n-data-table
+        class="table"
         remote
         :columns="columns"
         :data="heroes"

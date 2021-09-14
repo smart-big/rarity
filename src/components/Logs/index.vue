@@ -69,10 +69,9 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="container">
-    <n-button @click="() => loadLogs(address)">查询我的</n-button>
-
-    <div class="container">
+  <div class="table-container">
+    <div class="action-container">
+      <n-button @click="() => loadLogs(address)">查询我的</n-button>
       <n-input-group>
         <n-input :style="{ width: '100%' }" placeholder="0x..." v-model:value="inputAddr" @change=""/>
         <n-button type="primary" @click="() => loadLogs(inputAddr)" ghost>查询</n-button>
@@ -80,6 +79,7 @@ onMounted(async () => {
     </div>
     <h4>FTM消耗：{{totalCost}}</h4>
     <n-data-table
+        class="table"
         :columns="columns"
         :data="logs"
         :pagination="pagination"
