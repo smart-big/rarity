@@ -1,12 +1,6 @@
 <script setup>
 import {onMounted, ref, reactive} from "@vue/runtime-core";
 import { createClient } from "@supabase/supabase-js";
-import {ethers, constants} from "ethers";
-import {CONTRACT_CONFIG} from "../../constants";
-import NFT_ABI from "../../abis/nft.json";
-import GOLD_ABI from "../../abis/gold.json";
-import CELLAR_ABI from "../../abis/cellar.json";
-import ATTR_ABI from "../../abis/attr.json";
 
 const props = defineProps({
   address: String
@@ -86,7 +80,6 @@ onMounted(async () => {
     </div>
     <h4>FTM消耗：{{totalCost}}</h4>
     <n-data-table
-        ref="table"
         :columns="columns"
         :data="logs"
         :pagination="pagination"
