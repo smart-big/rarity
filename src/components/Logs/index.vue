@@ -80,7 +80,6 @@ onMounted(async () => {
     </div>
     <h4>FTM消耗：{{totalCost}}</h4>
     <n-data-table
-        ref="table"
         :columns="columns"
         :data="logs"
         :pagination="pagination"

@@ -173,7 +173,6 @@ onMounted(async () => {
   <div class="container">
     <n-data-table
         remote
-        ref="table"
         :columns="columns"
         :data="heroes"
         :pagination="pagination"
