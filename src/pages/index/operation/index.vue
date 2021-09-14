@@ -209,7 +209,7 @@ const approve = async (isApprove) => {
       注意: rarity-game.netlify.app 不兼容, 因为对方的代码设计问题，会导致授权后无法查看
     </div>
     <div>
-      测试UI版 https://rarity-adventures.surge.sh/
+      经测试可以兼容 UI版 https://rarity-adventures.surge.sh/
     </div>
     <div>
       本软件为专业软件,使用之前确保自己有一定智能合约知识
