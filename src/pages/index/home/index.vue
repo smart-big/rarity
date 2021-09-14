@@ -58,9 +58,9 @@ const approve = async () => {
 
 <route>
 {
-  name: 'Home',
+  name: '托管版',
   meta: {
-    title: '首页'
+    title: '托管版'
   }
 }
 </route>

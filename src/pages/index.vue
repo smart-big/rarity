@@ -2,7 +2,10 @@
   <div class="app">
     <div class="container">
       <div class="header">
-        <div></div>
+        <div class="navigation">
+          <router-link to="/home">托管版</router-link>
+          <router-link to="/operation">自用版</router-link>
+        </div>
         <div class="wallet">
           <n-button v-if="error" type="error" size="large">
             Error Network
@@ -18,7 +21,7 @@
         </div>
       </div>
       <img alt="Vue logo" src="../assets/logo.png" />
-      <h1>大聪明 Rarity 托管版</h1>
+      <h1>大聪明 Rarity {{ $route.name }}</h1>
     </div>
     <router-view :address="address" :provider="provider">
     </router-view>
@@ -106,6 +109,21 @@ import {addressFilter} from "../utils/address";
 
 </script>
 
-
-<style lang="less" scoped src="./index.less">
+<style lang="less" scoped>
+.container {
+  padding: 20px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+.navigation {
+  display: flex;
+  gap: 10px;
+}
 </style>
