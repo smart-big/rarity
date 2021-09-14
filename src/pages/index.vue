@@ -1,6 +1,6 @@
 <template>
   <div class="app">
-    <div>
+    <div class="container">
       <div class="header">
         <div></div>
         <div class="wallet">
@@ -17,8 +17,8 @@
           </template>
         </div>
       </div>
-<!--      <img alt="Vue logo" src="../assets/logo.png" />-->
-<!--      <h1>大聪明 Rarity 托管版</h1>-->
+      <img alt="Vue logo" src="../assets/logo.png" />
+      <h1>大聪明 Rarity 托管版</h1>
     </div>
     <router-view :address="address" :nftContract="nftContract">
     </router-view>
@@ -111,3 +111,7 @@ import {addressFilter} from "../utils/address";
 })
 
 </script>
+
+
+<style lang="less" scoped src="./index.less">
+</style>

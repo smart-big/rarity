@@ -82,7 +82,7 @@ const approve = async () => {
       </template>
     </div>
     <div v-if="address && approved" class="module-log">
-      <n-card style="margin-bottom: 16px;min-width: 800px">
+      <n-card style="margin-bottom: 16px; width: 100%">
         <n-tabs type="line">
           <n-tab-pane name="heroes" tab="英雄数据">
             <heroes :address="address"/>
