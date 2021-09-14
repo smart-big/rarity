@@ -20,7 +20,7 @@
       <img alt="Vue logo" src="../assets/logo.png" />
       <h1>大聪明 Rarity 托管版</h1>
     </div>
-    <router-view :address="address" :nftContract="nftContract">
+    <router-view :address="address" :provider="provider">
     </router-view>
   </div>
 </template>
@@ -32,8 +32,6 @@
 import {computed, onMounted, ref} from "@vue/runtime-core";
 import {ethers} from "ethers";
 import { useMessage } from 'naive-ui'
-import {CONTRACT_CONFIG} from "../constants";
-import NFT_ABI from "../abis/nft.json";
 import {addressFilter} from "../utils/address";
 
   const address = ref('')
@@ -41,18 +39,14 @@ import {addressFilter} from "../utils/address";
   const approved = ref(false)
   const loading = ref({
     account: false,
-    approve: false,
-    action: false,
   })
 
-  const nftContract = ref()
   const message = useMessage()
   const setAddress = async () => {
     loading.value.account = true
     try {
       const signer = await provider.getSigner()
       const value = await signer.getAddress()
-      nftContract.value = new ethers.Contract(CONTRACT_CONFIG.NFT, NFT_ABI, signer)
       address.value = value
       loading.value.account = false
     } catch (e) {
@@ -80,9 +74,9 @@ import {addressFilter} from "../utils/address";
         load()
       })
 
-      window.ethereum.on("networkChanged", async (id) => {
+      window.ethereum.on("networkChanged", (id) => {
         checkNetwork(id)
-        await load()
+        load()
       });
     }
 

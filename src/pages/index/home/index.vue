@@ -1,19 +1,23 @@
 <script setup>
+import {ethers} from "ethers";
 import {ref, watch} from "@vue/runtime-core";
 import { useMessage } from 'naive-ui'
 import {CONTRACT_CONFIG} from "../../../constants";
 import Heroes from "../../../components/Heroes/index.vue"
 import Logs from "../../../components/Logs/index.vue"
+import NFT_ABI from "../../../abis/nft.json";
+
+const nftContract = ref()
 
 
 const props = defineProps({
   address: String,
-  nftContract: Object
+  provider: Object
 })
 
-
-
-watch(() => props.address, (a) => {
+watch(() => props.address, async (a) => {
+  const signer = await props.provider.getSigner()
+  nftContract.value = new ethers.Contract(CONTRACT_CONFIG.NFT, NFT_ABI, signer)
   checkApprove()
 })
 
@@ -28,10 +32,11 @@ const message = useMessage()
 const checkApprove = async () => {
   try {
     loading.value.approve = true
-    const value = await props.nftContract.isApprovedForAll(props.address, CONTRACT_CONFIG.BATCH)
+    const value = await nftContract.value.isApprovedForAll(props.address, CONTRACT_CONFIG.BATCH)
     approved.value = value
     loading.value.approve = false
   }catch (e){
+    console.log(e);
     message.error(e.toString())
   }
 }
@@ -39,7 +44,7 @@ const checkApprove = async () => {
 const approve = async () => {
   try {
     loading.value.action = true
-    const tx = await props.nftContract.setApprovalForAll(CONTRACT_CONFIG.BATCH, true)
+    const tx = await nftContract.value.setApprovalForAll(CONTRACT_CONFIG.BATCH, true)
     const receipt = await tx.wait()
     loading.value.action = false
     message.success('授权成功')
