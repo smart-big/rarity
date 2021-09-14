@@ -208,17 +208,17 @@ const batchAttr = async () => {
     <div v-if="address && approved" class="module-log">
       <h4>批量操作，单次建议不超过30个。否则区块打包缓慢</h4>
       <div class="action-group">
-        <n-button type="primary" @click="batchApprove" :disabled="processing">批量授权 (加点/领金需要)</n-button>
-        <n-button type="primary" @click="batchAdventure" :disabled="processing">批量冒险</n-button>
-        <n-button type="primary" @click="batchCellar" :disabled="processing">批量地牢</n-button>
-        <n-button type="primary" @click="batchLevelUp" :disabled="processing">批量升级</n-button>
-        <n-button type="primary" @click="batchClaim" :disabled="processing">批量领金</n-button>
+        <n-button class="action-button" type="primary" @click="batchApprove" :disabled="processing">批量授权 (加点/领金需要)</n-button>
+        <n-button class="action-button" type="primary" @click="batchAdventure" :disabled="processing">批量冒险</n-button>
+        <n-button class="action-button" type="primary" @click="batchCellar" :disabled="processing">批量地牢</n-button>
+        <n-button class="action-button" type="primary" @click="batchLevelUp" :disabled="processing">批量升级</n-button>
+        <n-button class="action-button" type="primary" @click="batchClaim" :disabled="processing">批量领金</n-button>
       </div>
       <div class="action-group">
-        <n-button type="primary" @click="batchAttr" :disabled="processing">批量加点</n-button>
+        <n-button class="action-button" type="primary" @click="batchAttr" :disabled="processing">批量加点</n-button>
         <n-tooltip trigger="hover">
           <template #trigger>
-            <n-input v-model:value="heroType" placeholder="英雄类型 ID" :disabled="processing"/>
+            <n-input class="action-button" v-model:value="heroType" placeholder="英雄类型 ID" :disabled="processing"/>
           </template>
           1. Barbarian "野蛮人" <br/>
           2. Bard "诗人" <br/>
@@ -232,12 +232,12 @@ const batchAttr = async () => {
           10. Sorcerer "巫师" <br/>
           11. Wizard "法师" <br/>
         </n-tooltip>
-        <n-input v-model:value="strength" placeholder="strength" :disabled="processing"/>
-        <n-input v-model:value="dexterity" placeholder="dexterity" :disabled="processing"/>
-        <n-input v-model:value="constitution" placeholder="constitution" :disabled="processing"/>
-        <n-input v-model:value="intelligence" placeholder="intelligence" :disabled="processing"/>
-        <n-input v-model:value="wisdom" placeholder="wisdom" :disabled="processing"/>
-        <n-input v-model:value="charisma" placeholder="charisma" :disabled="processing"/>
+        <n-input class="action-button" v-model:value="strength" placeholder="strength" :disabled="processing"/>
+        <n-input class="action-button" v-model:value="dexterity" placeholder="dexterity" :disabled="processing"/>
+        <n-input class="action-button" v-model:value="constitution" placeholder="constitution" :disabled="processing"/>
+        <n-input class="action-button" v-model:value="intelligence" placeholder="intelligence" :disabled="processing"/>
+        <n-input class="action-button" v-model:value="wisdom" placeholder="wisdom" :disabled="processing"/>
+        <n-input class="action-button" v-model:value="charisma" placeholder="charisma" :disabled="processing"/>
       </div>
       <n-text type="info">{{txMessage}}</n-text>
       <n-input v-model:value="heroIdsString" type="textarea" placeholder="英雄ID列表，一行一个" :disabled="processing"/>
