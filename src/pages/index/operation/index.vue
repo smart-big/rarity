@@ -181,6 +181,19 @@ const batchAttr = async () => {
   processing.value = false;
 }
 
+const approve = async (isApprove) => {
+  try {
+    loading.value.action = true
+    const tx = await nftContract.value.setApprovalForAll(CONTRACT_CONFIG.BATCH, isApprove)
+    const receipt = await tx.wait()
+    loading.value.action = false
+    message.success('授权成功')
+    await checkApprove()
+  }catch (e){
+    message.error(e.toString)
+  }
+}
+
 </script>
 <route>
 {
@@ -197,22 +210,26 @@ const batchAttr = async () => {
       <template v-else>
         <template v-if="!approved">
           <p>请授权 Rarity 合约后联系大聪明客服，开启躺赢模式</p>
-          <n-button class="btn-approve" :loading="loading.action" size="large" color="#000" @click="approve">
+          <n-button class="btn-approve" :loading="loading.action" size="large" color="#000" @click="approve(true)">
             Approve
           </n-button>
         </template>
         <template v-if="approved">
           <div>
             <p>已经完成授权</p>
-            <n-button class="btn-approve" ghost size="large" color="#000" disabled>
-              Approved
-            </n-button>
+            <div>
+              <n-button class="btn-approve" ghost size="large" color="#000" disabled>
+                Approved
+              </n-button>
+              <n-button size="large" @click="unapprove(false)">Cancel Approve</n-button>
+            </div>
           </div>
         </template>
       </template>
     </div>
     <div v-if="address && approved" class="module-log">
       <h4>批量操作，单次建议不超过30个。否则区块打包缓慢</h4>
+      <p>rarity-game.netlify.app 不兼容, 因为对方的代码设计问题，会导致授权后无法查看</p>
       <div class="action-group">
         <n-button type="primary" @click="batchApprove" :disabled="processing">批量授权 (加点/领金需要)</n-button>
         <n-button type="primary" @click="batchAdventure" :disabled="processing">批量冒险</n-button>

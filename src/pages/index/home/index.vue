@@ -48,10 +48,10 @@ const checkApprove = async () => {
   }
 }
 
-const approve = async () => {
+const approve = async (isApprove) => {
   try {
     loading.value.action = true
-    const tx = await nftContract.value.setApprovalForAll(CONTRACT_CONFIG.BATCH, true)
+    const tx = await nftContract.value.setApprovalForAll(CONTRACT_CONFIG.BATCH, isApprove)
     const receipt = await tx.wait()
     loading.value.action = false
     message.success('授权成功')
@@ -79,16 +79,19 @@ const approve = async () => {
       <template v-else>
         <template v-if="!approved">
           <p>请授权 Rarity 合约后联系大聪明客服，开启躺赢模式</p>
-          <n-button class="btn-approve" :loading="loading.action" size="large" color="#000" @click="approve">
+          <n-button class="btn-approve" :loading="loading.action" size="large" color="#000" @click="approve(true)">
             Approve
           </n-button>
         </template>
         <template v-if="approved">
           <div>
             <p>已经完成授权</p>
-            <n-button class="btn-approve" ghost size="large" color="#000" disabled>
-              Approved
-            </n-button>
+            <div>
+              <n-button class="btn-approve" ghost size="large" color="#000" disabled>
+                Approved
+              </n-button>
+              <n-button size="large" @click="approve(false)">Cancel Approve</n-button>
+            </div>
           </div>
         </template>
       </template>
