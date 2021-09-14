@@ -5,6 +5,7 @@
         <div class="navigation">
           <router-link to="/home">托管版</router-link>
           <router-link to="/operation">自用版</router-link>
+          <a href="https://t.me/gamefichat">电报社区</a>
         </div>
         <div class="wallet">
           <n-button v-if="error" type="error" size="large">
