@@ -1,0 +1,100 @@
+<script setup>
+import {ref, watch} from "@vue/runtime-core";
+import { useMessage } from 'naive-ui'
+import {CONTRACT_CONFIG} from "../../../constants";
+import Heroes from "../../../components/Heroes/index.vue"
+import Logs from "../../../components/Logs/index.vue"
+
+
+const props = defineProps({
+  address: String,
+  nftContract: Object
+})
+
+
+
+watch(() => props.address, (a) => {
+  checkApprove()
+})
+
+const approved = ref(false)
+const loading = ref({
+  account: false,
+  approve: false,
+  action: false,
+})
+const message = useMessage()
+
+const checkApprove = async () => {
+  try {
+    loading.value.approve = true
+    const value = await props.nftContract.isApprovedForAll(props.address, CONTRACT_CONFIG.BATCH)
+    approved.value = value
+    loading.value.approve = false
+  }catch (e){
+    message.error(e.toString())
+  }
+}
+
+const approve = async () => {
+  try {
+    loading.value.action = true
+    const tx = await props.nftContract.setApprovalForAll(CONTRACT_CONFIG.BATCH, true)
+    const receipt = await tx.wait()
+    loading.value.action = false
+    message.success('授权成功')
+    await checkApprove()
+  }catch (e){
+    message.error(e.toString)
+  }
+}
+
+</script>
+
+<route>
+{
+  name: 'Home',
+  meta: {
+    title: '首页'
+  }
+}
+</route>
+
+<template>
+  <div class="container">
+    <div v-if="!!address" class="module-approve">
+      <n-spin v-if="loading.approve" stroke="#000" ></n-spin>
+      <template v-else>
+        <template v-if="!approved">
+          <p>请授权 Rarity 合约后联系大聪明客服，开启躺赢模式</p>
+          <n-button class="btn-approve" :loading="loading.action" size="large" color="#000" @click="approve">
+            Approve
+          </n-button>
+        </template>
+        <template v-if="approved">
+          <div>
+            <p>已经完成授权</p>
+            <n-button class="btn-approve" ghost size="large" color="#000" disabled>
+              Approved
+            </n-button>
+          </div>
+        </template>
+      </template>
+    </div>
+    <div v-if="address && approved" class="module-log">
+      <n-card style="margin-bottom: 16px;min-width: 800px">
+        <n-tabs type="line">
+          <n-tab-pane name="heroes" tab="英雄数据">
+            <heroes :address="address"/>
+          </n-tab-pane>
+          <n-tab-pane name="logs" tab="挂机日志">
+            <logs :address="address"/>
+          </n-tab-pane>
+        </n-tabs>
+      </n-card>
+    </div>
+  </div>
+</template>
+
+<style lang="less" scoped src="./index.less">
+</style>

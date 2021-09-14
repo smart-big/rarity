@@ -1,9 +1,8 @@
 <script setup>
-import Home from './pages/home/index.vue'
 </script>
 <template>
   <n-message-provider>
-    <home />
+    <router-view> </router-view>
   </n-message-provider>
 </template>
 
