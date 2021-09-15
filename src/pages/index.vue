@@ -3,9 +3,16 @@
     <div class="container">
       <div class="header">
         <div class="navigation">
-          <router-link to="/home">托管版</router-link>
-          <router-link to="/operation">自用版</router-link>
-          <a href="https://t.me/gamefichat">电报社区</a>
+          <router-link style="text-decoration: none" to="/home">
+            <n-button>
+              托管版
+            </n-button>
+          </router-link>
+          <router-link style="text-decoration: none" to="/operation">
+            <n-button>
+              自用版
+            </n-button>
+          </router-link>
         </div>
         <div class="wallet">
           <n-button v-if="error" type="error" size="large">

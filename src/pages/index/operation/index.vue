@@ -238,6 +238,24 @@ const approve = async (isApprove) => {
       </template>
     </div>
     <div v-if="address && approved" class="module-log">
+      <n-tooltip trigger="hover">
+        <template #trigger>
+          <h4 style="text-decoration: underline">👉解放双手，告别闹钟，托管请添加客服妹妹微信👈</h4>
+        </template>
+        <img width="300" alt="wechat qrcode" src="../../../assets/qrcode.jpg" />
+      </n-tooltip>
+      <div class="action-group">
+        <a style="text-decoration: none" href="https://t.me/gamefichat" target="_blank">
+          <n-button>
+            🔊大聪明社区
+          </n-button>
+        </a>
+        <a style="text-decoration: none" href="https://t.me/gamefiweathy" target="_blank">
+          <n-button>
+            🔊大聪明频道
+          </n-button>
+        </a>
+      </div>
       <h4>批量操作，单次建议不超过30个。否则区块打包缓慢</h4>
       <div class="action-group">
         <n-button class="action-button" type="primary" @click="batchApprove" :disabled="processing">批量授权 (加点/领金需要)</n-button>
