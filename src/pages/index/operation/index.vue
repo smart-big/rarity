@@ -2,9 +2,11 @@
 import {onMounted, ref, watch} from "@vue/runtime-core";
 import {CONTRACT_CONFIG} from "../../../constants";
 import {useMessage} from "naive-ui";
-import {ethers} from "ethers";
+import {ethers, constants} from "ethers";
 import BATCH_ABI from "../../../abis/batch.json";
 import NFT_ABI from "../../../abis/nft.json";
+import CELLAR_ABI from "../../../abis/cellar.json";
+import GOLD_ABI from "../../../abis/gold.json";
 
 const props = defineProps({
   address: String,
@@ -13,6 +15,7 @@ const props = defineProps({
 })
 
 const heroIdsString = ref("")
+const receiverHeroId = ref("")
 const strength = ref("")
 const dexterity = ref("")
 const constitution = ref("")
@@ -26,6 +29,8 @@ const processing = ref(false)
 const approved = ref(false)
 const nftContract = ref()
 const batchContract = ref()
+const cellarContract = ref()
+const goldContract = ref()
 
 const loading = ref({
   account: false,
@@ -66,6 +71,24 @@ const getContract = async () => {
   return batchContract.value
 }
 
+const getCellarContract = async () => {
+  const provider = window.ethereum ? new ethers.providers.Web3Provider(window.ethereum) :  new ethers.providers.JsonRpcProvider('https://mainnet.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161');
+  const signer = await provider.getSigner()
+  if (!cellarContract.value) {
+    cellarContract.value = new ethers.Contract(CONTRACT_CONFIG.CELLAR, CELLAR_ABI, signer)
+  }
+  return cellarContract.value
+}
+
+const getGoldContract = async () => {
+  const provider = window.ethereum ? new ethers.providers.Web3Provider(window.ethereum) :  new ethers.providers.JsonRpcProvider('https://mainnet.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161');
+  const signer = await provider.getSigner()
+  if (!goldContract.value) {
+    goldContract.value = new ethers.Contract(CONTRACT_CONFIG.GOLD, GOLD_ABI, signer)
+  }
+  return goldContract.value
+}
+
 const getHeroIdsArray = () => {
   const IDs = heroIdsString.value.split('\n').map(id => id.toString());
   if(IDs.every(id => !isNaN(parseInt(id)))) {
@@ -80,7 +103,16 @@ const getAttr = () => {
   if(attrs.every(attr => !isNaN(parseInt(attr)))) {
     return attrs
   } else {
-    throw new Error("英雄ID不正确")
+    throw new Error("属性不正确")
+  }
+}
+
+const getReceiverId = () => {
+  const ID = receiverHeroId.value;
+  if(!isNaN(parseInt(ID))) {
+    return ID
+  } else {
+    throw new Error("属性不正确")
   }
 }
 
@@ -177,6 +209,67 @@ const batchAttr = async () => {
   } catch (e) {
     message.error(JSON.stringify(e))
     txMessage.value = "设置属性失败，请重试，是否已授权？"
+  }
+  processing.value = false;
+}
+
+const transferMaterial = async () => {
+  processing.value = true;
+  txMessage.value = "（请勿刷新）转材料中..."
+  try {
+    const contract = await getCellarContract();
+    const heroIds = getHeroIdsArray();
+    const receiverHeroId = getReceiverId();
+    for (let i = 0; i < heroIds.length; i++) {
+      try {
+        const balance = await contract.balanceOf(heroIds[i])
+        if(balance.eq(0)) {
+          txMessage.value = `（请勿刷新）转材料中：${heroIds[i]} 无材料`
+          continue
+        }
+        txMessage.value = `（请勿刷新）转材料中：从${heroIds[i]}转移${balance.toString()}材料`
+        const tx = await contract.transfer(heroIds[i], receiverHeroId, balance.toString())
+        await tx.wait()
+      } catch {
+        txMessage.value = `（请勿刷新）转材料中：${heroIds[i]} 转移失败`
+      }
+    }
+    txMessage.value = `${heroIds.join(', ')} 转材料结束`
+  } catch (e) {
+    message.error(JSON.stringify(e))
+    txMessage.value = "转材料失败"
+  }
+  processing.value = false;
+}
+
+const transferGold = async () => {
+  processing.value = true;
+  txMessage.value = "（请勿刷新）转金币中..."
+  try {
+    const contract = await getGoldContract();
+    const heroIds = getHeroIdsArray();
+    const receiverHeroId = getReceiverId();
+    console.log("??")
+    for (let i = 0; i < heroIds.length; i++) {
+      try {
+        const balance = await contract.balanceOf(heroIds[i])
+        console.log(balance)
+        if(balance.eq(0)) {
+          message.info(`${heroIds[i]} 无金币`)
+          continue
+        }
+        txMessage.value = `（请勿刷新）转金币中：从${heroIds[i]}转移${balance.div(constants.WeiPerEther).toString()}金币`
+        const tx = await contract.transfer(heroIds[i], receiverHeroId, balance.toString())
+        await tx.wait()
+      } catch(e) {
+        console.log(e)
+        txMessage.value = `（请勿刷新）转金币中：${heroIds[i]} 转移失败`
+      }
+    }
+    txMessage.value = `${heroIds.join(', ')} 转金币结束`
+  } catch (e) {
+    message.error(JSON.stringify(e))
+    txMessage.value = "转金币失败"
   }
   processing.value = false;
 }
@@ -288,6 +381,11 @@ const approve = async (isApprove) => {
         <n-input class="action-button" v-model:value="intelligence" placeholder="intelligence" :disabled="processing"/>
         <n-input class="action-button" v-model:value="wisdom" placeholder="wisdom" :disabled="processing"/>
         <n-input class="action-button" v-model:value="charisma" placeholder="charisma" :disabled="processing"/>
+      </div>
+      <div class="action-group">
+        <n-button class="action-button" type="primary" @click="transferMaterial" :disabled="processing">转材料🍖</n-button>
+        <n-button class="action-button" type="primary" @click="transferGold" :disabled="processing">转金币💰</n-button>
+        <n-input class="action-button" v-model:value="receiverHeroId" placeholder="收货英雄ID" :disabled="processing"/>
       </div>
       <n-text type="info">{{txMessage}}</n-text>
       <n-input v-model:value="heroIdsString" type="textarea" placeholder="英雄ID列表，一行一个" :disabled="processing"/>
