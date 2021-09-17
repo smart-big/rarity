@@ -57,7 +57,7 @@ const approve = async (isApprove) => {
     message.success('授权成功')
     await checkApprove()
   }catch (e){
-    message.error(e.toString)
+    message.error(JSON.stringify(e))
   }
 }
 
