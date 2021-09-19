@@ -231,7 +231,7 @@ const approve = async (isApprove) => {
               <n-button class="btn-approve" ghost size="large" color="#000" disabled>
                 Approved
               </n-button>
-              <n-button size="large" @click="unapprove(false)">Cancel Approve</n-button>
+              <n-button size="large" @click="approve(false)">Cancel Approve</n-button>
             </div>
           </div>
         </template>
