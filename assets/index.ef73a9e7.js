@@ -1,1 +1,1 @@
-var t={};const o={};"function"==typeof t&&t(o);export{o as default};
+var f={};const o={};typeof f=="function"&&f(o);export{o as default};
