@@ -46,6 +46,7 @@ const loadLogs = async (address) => {
       .from('rarity_logs')
       .select('hash, type, gasCost, timestamp, heroes_count')
       .eq('address', address.toLowerCase())
+      .range(0,20000)
       .order('timestamp', { ascending: false })
   logs.value = data.map((log) => ({
     ...log,
