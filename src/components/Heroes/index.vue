@@ -118,7 +118,7 @@ const getAllHeroesData = async () => {
   const { data: heroes } = await supabase
       .from('rarity_heroes')
       .select()
-      .range(0,2000)
+      .range(0,4000)
       .eq('address', props.address.toLowerCase())
   ids.value = heroes.map(hero => hero.id)
   pagination.itemCount = heroes.length

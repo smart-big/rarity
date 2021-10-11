@@ -42,11 +42,16 @@ const columns = [
 const loadLogs = async (address) => {
   if(loading.value) return;
   loading.value = true
+  const { data: heroes } = await supabase
+      .from('rarity_heroes')
+      .select()
+      .range(0,4000)
+      .eq('address', props.address.toLowerCase())
   const { data } = await supabase
       .from('rarity_logs')
       .select('hash, type, gasCost, timestamp, heroes_count')
       .eq('address', address.toLowerCase())
-      .range(0,20000)
+      .range(0,10000)
       .order('timestamp', { ascending: false })
   logs.value = data.map((log) => ({
     ...log,
@@ -56,7 +61,7 @@ const loadLogs = async (address) => {
   }))
   totalCost.value = data.reduce((acc, current) => {
     return acc + current.gasCost * 1
-  }, 0)
+  }, heroes.length * 0.117088184)
   txCount.value = data.length
   loading.value = false
 }
