@@ -46,7 +46,7 @@ const loadLogs = async (address) => {
       .from('rarity_heroes')
       .select()
       .range(0,4000)
-      .eq('address', props.address.toLowerCase())
+      .eq('address', address.toLowerCase())
   const { data } = await supabase
       .from('rarity_logs')
       .select('hash, type, gasCost, timestamp, heroes_count')
